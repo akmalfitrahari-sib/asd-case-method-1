@@ -43,14 +43,14 @@ public class ListPeminjaman03 {
         }
     }
 
-    // Method untuk mengurutkan data berdasarkan NIM (ascending)
-    void insertionSortNim() {
-        for (int i = 0; i < idx; i++) {
+    // Method untuk mengurutkan data berdasarkan Nama (ascending)
+    void insertionSortNama() {
+        for (int i = 1; i < idx; i++) {
             Peminjaman03 temp = listPinjam[i]; // Simpan sementara data
             int j = i;
 
-            // Geser data jika NIM sebelumnya lebih besar (ascending)
-            while (j > 0 && listPinjam[j-1].mhs.nim.compareTo(temp.mhs.nim) > 0) {
+            // Geser data jika nama sebelumnya lebih besar (ascending)
+            while (j > 0 && listPinjam[j-1].mhs.nama.compareTo(temp.mhs.nama) > 0) {
                 listPinjam[j] = listPinjam [j-1];
                 j--;
             }
@@ -58,18 +58,18 @@ public class ListPeminjaman03 {
         }
     }
 
-    // Method binary search untuk mencari data berdasarkan NIM
+    // Method binary search untuk mencari data berdasarkan Nama
     int findBinarySearch(String cari, int left, int right) {
         int mid;
         if (right >= left) { // Selama masih ada rentang pencarian
             mid = (left + right)/2; // Menentukan indeks tengah
 
             // Jika data ditemukan
-            if (cari.equals(listPinjam[mid].mhs.nim)) {
+            if (cari.equalsIgnoreCase(listPinjam[mid].mhs.nama)) {
                 return (mid);
             }
             // Jika data tengah lebih besar, cari ke kiri
-            else if (listPinjam[mid].mhs.nim.compareTo(cari) > 0) {
+            else if (listPinjam[mid].mhs.nama.compareToIgnoreCase(cari) > 0) {
                 return findBinarySearch(cari, left, mid-1);
             }
             // Jika lebih kecil, cari ke kanan
@@ -80,15 +80,27 @@ public class ListPeminjaman03 {
         return -1; // Jika data tidak ditemukan
     }
 
-    // Method untuk menampilkan hasil pencarian berdasarkan NIM
-    void tampilDataSearch(String nim, int pos) {
+    // Method untuk menampilkan hasil pencarian berdasarkan Nama
+    void tampilDataSearch(String nama, int pos) {
         if (pos !=-1) { // Jika data ditemukan
-            Peminjaman03 p = listPinjam[pos];
-            p.hitungDenda(); // Memastikan denda sudah dihitung
+            
+            //cek ke kiri
+            int i = pos;
+            while (i >= 0 && listPinjam[i].mhs.nama.equalsIgnoreCase(nama)) {
+                i--;
+            }
+            i++; // kembali ke posisi awal yang cocok
 
-            // menampilkan data lengkap peminjaman
-            System.out.println(p.mhs.nama + " | " + p.buku.judul + " | Lama: " + p.lamaPinjam 
+            // menampilkan semua data yang sama
+            while (i < idx && listPinjam[i].mhs.nama.equalsIgnoreCase(nama)) {
+                Peminjaman03 p = listPinjam[i];
+                p.hitungDenda(); // Memastikan denda sudah dihitung
+
+                System.out.println(p.mhs.nama + " | " + p.buku.judul + " | Lama: " + p.lamaPinjam 
             + " | Terlambat: " + p.terlambat + " | Denda: " + p.denda);
+
+                i++;
+            }
         }
         else {
             System.out.println("Data tidak ditemukan"); // Jika tidak ditemukan
