@@ -8,8 +8,8 @@ public class Main03 {
         System.out.println("2. Tampilkan Buku");
         System.out.println("3. Tampilkan Peminjaman");
         System.out.println("4. Urutkan berdasarkan denda");
-        System.out.println("5. Cari berdasarkan nama");
-        System.out.println("6. Cari berdasarkan NIM");
+        System.out.println("5. Cari berdasarkan NIM");
+        System.out.println("6. Cari berdasarkan Nama");
         System.out.println("0. Keluar");
     }
 
