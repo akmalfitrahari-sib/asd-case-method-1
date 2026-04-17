@@ -43,6 +43,58 @@ public class ListPeminjaman03 {
         }
     }
 
+    // Method untuk mengurutkan data berdasarkan NIM (ascending)
+    void insertionSortNim() {
+        for (int i = 0; i < idx; i++) {
+            Peminjaman03 temp = listPinjam[i]; // Simpan sementara data
+            int j = i;
+
+            // Geser data jika NIM sebelumnya lebih besar (ascending)
+            while (j > 0 && listPinjam[j-1].mhs.nim.compareTo(temp.mhs.nim) > 0) {
+                listPinjam[j] = listPinjam [j-1];
+                j--;
+            }
+            listPinjam[j] = temp; // Tempatkan data pada posisi yang tepat
+        }
+    }
+
+    // Method binary search untuk mencari data berdasarkan NIM
+    int findBinarySearchNim(String cari, int left, int right) {
+        int mid;
+        if (right >= left) { // Selama masih ada rentang pencarian
+            mid = (left + right)/2; // Menentukan indeks tengah
+
+            // Jika data ditemukan
+            if (cari.equals(listPinjam[mid].mhs.nim)) {
+                return (mid);
+            }
+            // Jika data tengah lebih besar, cari ke kiri
+            else if (listPinjam[mid].mhs.nim.compareTo(cari) > 0) {
+                return findBinarySearchNim(cari, left, mid-1);
+            }
+            // Jika lebih kecil, cari ke kanan
+            else {
+                return findBinarySearchNim(cari, mid+1, right);
+            }
+        }
+        return -1; // Jika data tidak ditemukan
+    }
+
+    // Method untuk menampilkan hasil pencarian berdasarkan NIM
+    void tampilDataSearchNim(String nim, int pos) {
+        if (pos !=-1) { // Jika data ditemukan
+            Peminjaman03 p = listPinjam[pos];
+            p.hitungDenda(); // Memastikan denda sudah dihitung
+
+            // menampilkan data lengkap peminjaman
+            System.out.println(p.mhs.nama + " | " + p.buku.judul + " | Lama: " + p.lamaPinjam 
+            + " | Terlambat: " + p.terlambat + " | Denda: " + p.denda);
+        }
+        else {
+            System.out.println("Data tidak ditemukan"); // Jika tidak ditemukan
+        }
+    }
+
     // Method untuk mengurutkan data berdasarkan Nama (ascending)
     void insertionSortNama() {
         for (int i = 1; i < idx; i++) {
@@ -59,7 +111,7 @@ public class ListPeminjaman03 {
     }
 
     // Method binary search untuk mencari data berdasarkan Nama
-    int findBinarySearch(String cari, int left, int right) {
+    int findBinarySearchNama(String cari, int left, int right) {
         int mid;
         if (right >= left) { // Selama masih ada rentang pencarian
             mid = (left + right)/2; // Menentukan indeks tengah
@@ -70,18 +122,18 @@ public class ListPeminjaman03 {
             }
             // Jika data tengah lebih besar, cari ke kiri
             else if (listPinjam[mid].mhs.nama.compareToIgnoreCase(cari) > 0) {
-                return findBinarySearch(cari, left, mid-1);
+                return findBinarySearchNama(cari, left, mid-1);
             }
             // Jika lebih kecil, cari ke kanan
             else {
-                return findBinarySearch(cari, mid+1, right);
+                return findBinarySearchNama(cari, mid+1, right);
             }
         }
         return -1; // Jika data tidak ditemukan
     }
 
     // Method untuk menampilkan hasil pencarian berdasarkan Nama
-    void tampilDataSearch(String nama, int pos) {
+    void tampilDataSearchNama(String nama, int pos) {
         if (pos !=-1) { // Jika data ditemukan
             
             //cek ke kiri
