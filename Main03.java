@@ -8,7 +8,7 @@ public class Main03 {
         System.out.println("2. Tampilkan Buku");
         System.out.println("3. Tampilkan Peminjaman");
         System.out.println("4. Urutkan berdasarkan denda");
-        System.out.println("5. Cari berdasarkan NIM");
+        System.out.println("5. Cari berdasarkan nama");
         System.out.println("0. Keluar");
     }
 
@@ -65,10 +65,10 @@ public class Main03 {
                     listPeminjaman.tampil("=== Data setelah diurutkan (Denda Terbesar) ==="); // Menampilkan hasil setelah sorting
                 }
                 case 5 -> {
-                    System.out.print("Masukkan NIM: ");
-                    String cari = sc.nextLine(); // Input NIM yang dicari
-                    listPeminjaman.insertionSortNim(); // Data harus diurutkan dulu sebelum binary search
-                    int pos = listPeminjaman.findBinarySearch(cari, 0, listMhs.idx -1);  // Mencari posisi data berdasarkan NIM
+                    System.out.print("Masukkan Nama: ");
+                    String cari = sc.nextLine(); // Input Nama yang dicari
+                    listPeminjaman.insertionSortNama(); // Data harus diurutkan dulu sebelum binary search
+                    int pos = listPeminjaman.findBinarySearch(cari, 0, listPeminjaman.idx -1);  // Mencari posisi data berdasarkan nama
                     listPeminjaman.tampilDataSearch(cari, pos); // Menampilkan hasil pencarian
                 }
                 case 0 -> System.out.println("Program selesai."); // Keluar program
